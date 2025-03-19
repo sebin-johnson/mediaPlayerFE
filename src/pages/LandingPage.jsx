@@ -18,7 +18,7 @@ const LandingPage = () => {
             </Link>
           </Col>
           <Col>
-            <img src="https://media.tenor.com/lhlDEs5fNNEAAAAC/music-beat.gif" width={'330px'} className='ms-2 rounded-2' alt="" />
+            <img src="https://media.tenor.com/lhlDEs5fNNEAAAAC/music-beat.gif" width={'300px'} className='ms-2 rounded-2' alt="" />
           </Col>
         </Row>
       </Container>
