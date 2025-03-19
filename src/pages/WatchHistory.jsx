@@ -32,33 +32,35 @@ const WatchHistory = () => {
           <i className="fa-solid fa-arrow-left me-1"></i>Back to Home
         </Link>
       </div>
-      <table className='table table-dark container mt-3 text-center table-bordered'>
-        <thead>
-          <tr>
-            <th>#</th>
-            <th>Title</th>
-            <th>Video Url</th>
-            <th>Time</th>
-            <th>Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          {
-            history.length > 0 ? (
-            history?.map((item) => (
-              <tr>
-                <td>{item.id}</td>
-                <td>{item.caption}</td>
-                <td>{item.embeddedLink}</td>
-                <td>{item.time}</td>
-                <td><Button variant="warning" onClick={() => removeHistory(item.id)}><i className="fa-solid fa-trash"></i></Button></td>
-              </tr>
-            ))
-          ) : (
-          <p className='text-center mt-2 bg'>History not found.</p>
-          )}
-        </tbody>
-      </table>
+      <div style={{ overflow: "auto" }}>
+        <table className='table table-dark container mt-3 text-center table-bordered'>
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Title</th>
+              <th>Video Url</th>
+              <th>Time</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            {
+              history.length > 0 ? (
+                history?.map((item) => (
+                  <tr>
+                    <td>{item.id}</td>
+                    <td>{item.caption}</td>
+                    <td>{item.embeddedLink}</td>
+                    <td>{item.time}</td>
+                    <td><Button variant="warning" onClick={() => removeHistory(item.id)}><i className="fa-solid fa-trash"></i></Button></td>
+                  </tr>
+                ))
+              ) : (
+                <p className='text-center mt-2 bg'>History not found.</p>
+              )}
+          </tbody>
+        </table>
+      </div>
       <ToastContainer
         position="bottom-right"
         autoClose={5000}
