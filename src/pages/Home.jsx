@@ -13,7 +13,7 @@ const Home = () => {
       <div className='container d-flex align-items-center justify-content-between mt-4'>
         <Add setUploadVideoStatus={setUploadVideoStatus} />
         <Link style={{ textDecoration: "none", color: "white" }} to={'/history'}>
-          <span>WATCH HISTORY<i className="fa-solid fa-clock ms-2"></i></span>
+          <span style={{ color: "#ADD8E6" }}>WATCH HISTORY<i className="fa-solid fa-clock ms-2"></i></span>
         </Link>
       </div>
       {/* second section */}

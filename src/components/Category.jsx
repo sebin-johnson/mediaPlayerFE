@@ -1,10 +1,11 @@
 import React, { useEffect } from 'react'
 import { useState } from 'react';
 import Button from 'react-bootstrap/Button';
+import Card from 'react-bootstrap/Card';
 import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
 import { toast } from 'react-toastify';
-import { addcategory, deleteCategory, getAllCategory } from '../services/allApi';
+import { addcategory, deleteCategory, getAllCategory, getVideoDetailsById, updateCategory } from '../services/allApi';
 
 const Category = () => {
   const [categories, setCategories] = useState()
@@ -46,6 +47,26 @@ const Category = () => {
       toast.error('Something went wrong!')
     }
   }
+  const dragOver = (e) => {
+    e.preventDefault()
+    console.log('inside drag over')
+  }
+  const videoDropped = async (e, id) => {
+    console.log(`dropped inside category with ID ${id}`)
+    const vId = e.dataTransfer.getData('videoId')
+    console.log(`video with id ${vId} is dropped inside category id ${id}`)
+    const result = await getVideoDetailsById(vId)
+    console.log(result)
+    const { data } = result
+    let selectedCategory = categories?.find((item => item.id == id))
+    console.log(selectedCategory)
+    selectedCategory.allVideos.push(data)
+    console.log(selectedCategory)
+    const res3 = await updateCategory(id, selectedCategory)
+    console.log(res3)
+    getCategory()
+  }
+
   useEffect(() => {
     getCategory()
   }, [categories])
@@ -83,10 +104,32 @@ const Category = () => {
       </Modal>
       {
         categories?.map((item) => (
-          <div className='border border-secondary rounded p-2 mt-3'>
+          <div className='border border-secondary rounded p-2 mt-3' droppable onDragOver={(e) => dragOver(e)}
+            onDrop={(e) => videoDropped(e, item.id)}>
             <div className='d-flex justify-content-between align-items-center'>
               <h6 className='ms-2'>{item.Genre}</h6>
               <button className='btn btn-warning me-2' onClick={() => removeCategory(item.id)}><i className="fa-solid fa-trash"></i></button>
+            </div>
+            <div className='d-flex justify-content-center align-items-center flex-wrap gap-4 mt-3 mb-3'>
+              {
+                item.allVideos?.map((details) => (
+                  // <div className='border border-secondary rounded p-2'>
+                  //   <Card style={{ width: '8rem' }} className='bg-black text-white'>
+                  //     <Card.Img variant="top" style={{
+                  //       objectFit: "cover"
+                  //     }}
+                  //       onClick={handleShow}
+                  //       src={details.thumbnailUrl} />
+                  //     <Card.Body>
+                  //       <div className='d-flex justify-content-between align-items-center'>
+                  //         <Card.Title className='text-center' style={{ fontSize: "13px" }}>{details.caption}</Card.Title>
+                  //       </div>
+                  //     </Card.Body>
+                  //   </Card>
+                  // </div>
+                  <img src={details.thumbnailUrl} style={{ objectFit: "cover", width: "45%", borderRadius: "2%" }} alt="" />
+                ))
+              }
             </div>
           </div>
         ))

@@ -3,7 +3,7 @@ import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import { useState } from 'react';
 import Modal from 'react-bootstrap/Modal';
-import { addToHistory, deleteVideo } from '../services/allApi';
+import { addToHistory, deleteVideo, getVideoDetailsById } from '../services/allApi';
 import { toast } from 'react-toastify';
 
 const VideoCard = ({ displayVideo, setDeleteVideoStatus }) => {
@@ -37,10 +37,14 @@ const VideoCard = ({ displayVideo, setDeleteVideoStatus }) => {
             toast.error('Something went wrong!')
         }
     }
+    const dragStarted = (e, id) => {
+        console.log(`video with ${id} started dragging`)
+        e.dataTransfer.setData("videoId", id)
+    }
     return (
         <>
             <div className='container-fluid d-flex flex-row flex-wrap gap-3 mt-4 justify-content-center'>
-                <Card style={{ width: '18rem' }} className='bg-dark text-white'>
+                <Card style={{ width: '18rem' }} className='bg-dark text-white' draggable onDragStart={(e) => dragStarted(e, displayVideo.id)}>
                     <Card.Img variant="top" style={{
                         objectFit: "cover"
                     }}
