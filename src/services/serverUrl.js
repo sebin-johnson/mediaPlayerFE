@@ -1,3 +1,3 @@
-// export const serverUrl = 'https://mediaplayerbe-lee9.onrender.com'
+export const serverUrl = 'https://mediaplayerbe-lee9.onrender.com'
 
-export const serverUrl = 'http://localhost:5000'
+// export const serverUrl = 'http://localhost:5000'
